@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <title>Fizibilite ve ön görüşme</title>
+  <script>
+    // Seçilen temayı sayfa çizilmeden uygula (açılışta renk sıçraması olmasın).
+    (function () {
+      try {
+        var t = localStorage.getItem("onGorusme.theme");
+        if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <p class="doc-name">Amazon iş süreçleri otomasyonu: fizibilite ve ön görüşme</p>
+      <button type="button" class="theme-btn" id="theme-btn">Koyu tema</button>
+    </div>
+    <h1>Üç modül de yapılabilir. Kişi bulma için önce sizin markalarınızla ölçüm yapacağız.</h1>
+    <p class="lede">Gönderdiğiniz ihtiyaç dökümanını ve yazışmaları inceledik, bağlanacağımız araçların ne verip ne vermediğini tek tek doğruladık. Aşağıda önce bulduklarımız, sonra sizden öğrenmemiz gerekenler var.</p>
+
+    <ol class="route" aria-label="Önerdiğimiz yapım sırası">
+      <li>
+        <span class="route-step">Önce</span>
+        <span class="route-name">Listing analizi ve rapor</span>
+        <span class="status yes">Yapılır</span>
+      </li>
+      <li>
+        <span class="route-step">Sonra</span>
+        <span class="route-name">Marka filtreleme</span>
+        <span class="status yes">Yapılır</span>
+      </li>
+      <li>
+        <span class="route-step">En son</span>
+        <span class="route-name">Doğru kişiyi bulma</span>
+        <span class="status partial">Ölçülecek</span>
+      </li>
+    </ol>
+
+    <p class="how">Okuması 5 dakika, soruları cevaplaması 10–15 dakika sürer. Cevaplarınız yazdıkça kaydedilir; yarıda bırakıp aynı cihazdan devam edebilirsiniz.</p>
+    <p class="jump"><a href="#sorular">Doğrudan sorulara geç</a></p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="anladik">
+    <h2>Ne anladık</h2>
+    <p>Amazon ABD'de toptan satış için marka buluyor, markadaki doğru kişiye ulaşıyor ve dikkat çekmek için ücretsiz bir listing analizi gönderiyorsunuz. Bugün bu üç adım ayrı araçlarda, büyük ölçüde elle yürüyor. İstediğiniz, üçünün tek sistemde sırayla ve otomatik çalışması.</p>
+    <dl class="modules">
+      <div>
+        <dt>Marka filtreleme</dt>
+        <dd>SmartScout verisinden markaları satış, ciro ve kategoriye göre süzmek; küçük ve büyük markaları ayırmak.</dd>
+      </div>
+      <div>
+        <dt>Doğru kişiyi bulma</dt>
+        <dd>Markanın sitesi, telefonu ve karar vericilerinin doğrulanmış e-postaları. Apollo küçük markalarda yetersiz ve pahalı kalıyor.</dd>
+      </div>
+      <div>
+        <dt>Listing analizi ve rapor</dt>
+        <dd>Markanın bir ürününü inceleyip eksiklerini ve rakiple farkını gösteren, markaya özel PDF rapor.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="kapsam">
+    <h2>Ne yapılır, ne yapılmaz</h2>
+
+    <h3>Listing analizi ve rapor</h3>
+    <ul class="scope">
+      <li><span class="status yes">Yapılır</span><span>Marka adı ya da ürün linki girilir; sistem markanın ürünlerini bulur ve incelenecek ürünü seçer.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Başlık uzunluğu, madde imlerinin sayısı ve uzunluğu, görsel sayısı ve çözünürlüğü, A+ içerik ve video olup olmadığı, fiyat ve Buy Box durumu kontrol edilir.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Aynı alt kategorideki güçlü rakiple yan yana kıyas.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Firmanızın adı ve logosuyla, markaya özel PDF rapor. Gitmeden önce panelde okuyup düzeltebilirsiniz.</span></li>
+      <li><span class="status partial">Kısmen</span><span>Satış adedi. Amazon kesin rakam vermiyor; eldeki veri “ayda 100+” gibi basamaklı ve her üründe yok. Kesin adet yerine “rakip sizden kaç kat iyi sırada” kıyasını kullanırız.</span></li>
+      <li><span class="status partial">Kısmen</span><span>Görsel kalitesi. Sayı ve çözünürlük ölçülür; “görsel güzel mi” yargısı otomatik ve kesin değildir.</span></li>
+      <li><span class="status no">Şimdilik yok</span><span>Anahtar kelimelerin aylık arama hacmi. İsterseniz sonradan eklenir.</span></li>
+    </ul>
+    <p class="note">Veri kaynağı Keepa API. Amazon sayfalarını doğrudan taramayacağız: Amazon bunu kullanım şartlarında yasaklıyor ve teknik olarak engelliyor.</p>
+
+    <h3>Marka filtreleme</h3>
+    <ul class="scope">
+      <li><span class="status yes">Yapılır</span><span>SmartScout'tan indirdiğiniz marka listesini (Excel ya da CSV) panele yüklersiniz.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Aylık satış, aylık ciro, kategori ve sizin belirleyeceğiniz diğer kriterlerle filtre.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Küçük ve büyük marka etiketi; eşik panelden değiştirilebilir.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Daha önce bakılan markalar işaretlenir; aynı marka iki kez işlenmez.</span></li>
+      <li><span class="status partial">Kısmen</span><span>SmartScout'tan otomatik veri çekme. Yalnızca Enterprise planda mümkün. Planınız uygunsa sonradan bağlanır; değilse liste yükleyerek aynı sonuca ulaşılır.</span></li>
+    </ul>
+
+    <h3>Doğru kişiyi bulma</h3>
+    <ul class="scope">
+      <li><span class="status yes">Yapılır</span><span>Markanın resmi sitesi ve telefon numarası.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Kurucu, e-ticaret, satış, pazarlama gibi rollerde kişi adı ve ünvanı.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Tek araca bağlı kalmadan birkaç kaynağı sırayla deneme; yalnızca sonuç bulan kaynağa ödeme.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Her adres için açık etiket: doğrulandı, kesin doğrulanamadı ya da tahmini.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Kişiye özel mail taslağı ve Excel/CSV çıktısı.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Harcama takibi ve aylık tavan; hangi araca ne ödendiği panelde görünür.</span></li>
+      <li><span class="status partial">Kısmen</span><span>Her markada doğrulanmış e-posta. Küçük markalarda bazı kişiler hiçbir kaynakta yok; bazı firmaların mail sunucusu kesin doğrulamaya izin vermiyor.</span></li>
+      <li><span class="status no">Yapılmaz</span><span>Mail gönderimi. Sistem listeyi ve taslağı hazırlar; gönderimi kendi mail aracınızdan yaparsınız.</span></li>
+      <li><span class="status no">Yapılmaz</span><span>LinkedIn'den doğrudan veri çekme. LinkedIn bunu yasaklıyor.</span></li>
+    </ul>
+  </section>
+
+  <section id="sira">
+    <h2>Neden bu sırayla</h2>
+    <p>Rapor modülü en hızlı ve en az riskli olan. Birkaç hafta içinde elinizde çalışan, gözle görülür bir çıktı olur.</p>
+    <p>Kişi bulma sizin için en kritik modül, ama sonucu en belirsiz olan da o. Kör söz vermek yerine, rapor modülü yapılırken vereceğiniz 30 gerçek markayla küçük bir test yapacağız. Hangi araç sizin markalarınızda kaç kişi buluyor, kişi başı kaça geliyor: bunu rakamla göreceksiniz. O modülün kapsamı bu sonuca göre kesinleşir.</p>
+  </section>
+
+  <section id="yol">
+    <h2>Yol haritası</h2>
+    <ol class="timeline">
+      <li>
+        <div class="tl-head"><h3>Hazırlık</h3><span class="tl-time">yaklaşık 1 hafta</span></div>
+        <p>Erişimlerin açılması, 30 markalık kişi bulma testi ve sonuç tablosu.</p>
+      </li>
+      <li>
+        <div class="tl-head"><h3>Rapor</h3><span class="tl-time">3–4 hafta</span></div>
+        <p>Panel, marka ya da ürün girişi, analiz, düzenle ve onayla adımı, PDF, Telegram bildirimi. İlk 10 raporu birlikte gözden geçiririz.</p>
+      </li>
+      <li>
+        <div class="tl-head"><h3>Filtre</h3><span class="tl-time">1–1,5 hafta</span></div>
+        <p>SmartScout listesi yükleme, filtre tablosu, küçük ve büyük etiketi, seçilen markalara toplu rapor.</p>
+      </li>
+      <li>
+        <div class="tl-head"><h3>Kişi bulma</h3><span class="tl-time">3–5 hafta</span></div>
+        <p>Site ve telefon, kişi kartları, doğrulama etiketleri, mail taslağı, dışa aktarma, harcama takibi; markadan rapora tek akış. Süre test sonucuna bağlı.</p>
+      </li>
+    </ol>
+    <p class="note">Toplam 8–12 hafta. Süreler tahmindir; cevaplarınıza göre kesinleşir. SmartScout otomatik bağlantısı, arama hacmi ve mail aracınıza doğrudan aktarım isteğe bağlı sonraki işlerdir.</p>
+  </section>
+
+  <section id="gider">
+    <h2>Aylık işletme giderleri</h2>
+    <p>Bunlar araçların kendi abonelikleri. Hesaplar sizin adınıza açılır ve doğrudan size faturalanır.</p>
+    <table class="costs">
+      <thead>
+        <tr><th scope="col">Kalem</th><th scope="col">Düşük kullanım</th><th scope="col">Yoğun kullanım</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Keepa API</th><td>~€49</td><td>~€129</td></tr>
+        <tr><th scope="row">Sunucu</th><td>$25</td><td>$50</td></tr>
+        <tr><th scope="row">Yapay zekâ (rapor metni)</th><td>$10</td><td>$50</td></tr>
+        <tr><th scope="row">E-posta bulma kredileri</th><td>$20</td><td>$150</td></tr>
+        <tr><th scope="row">Doğrulama ve arama</th><td>$5</td><td>$20</td></tr>
+        <tr><th scope="row">Telegram</th><td>$0</td><td>$0</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><th scope="row">Toplam</th><td>~$110</td><td>~$400</td></tr>
+      </tfoot>
+    </table>
+    <p class="note">Tutar aylık marka sayınıza bağlı. Keepa fiyatı abonelik açılırken netleşir. Apollo aboneliğiniz kalkarsa net fark ayrıca hesaplanır.</p>
+    <p class="note">Geliştirme ücreti, cevaplarınızla kapsam netleşince ayrıca paylaşılacak.</p>
+  </section>
+
+  <section id="bilgi">
+    <h2>Bilmeniz gerekenler</h2>
+    <dl class="facts">
+      <div>
+        <dt>“Yapay zekâyı eğitmek” ne demek</dt>
+        <dd>Model baştan eğitilmeyecek; buna gerek de yok. Sistem veriyi kendisi toplar, sizin kurallarınıza göre değerlendirir ve raporu yazar. Sizin eğitmeniz şu anlama geliyor: panelden eşikleri, sunduğunuz hizmetleri, raporun tonunu ve beğendiğiniz örnek raporları ayarlamak.</dd>
+      </div>
+      <div>
+        <dt>Toplu işler zaman alır</dt>
+        <dd>Bir rapor için gereken veri 5–6 dakikada toplanır. 100 markalık bir liste en düşük Keepa planında yaklaşık 9 saat sürer; gece çalışır, sabah hazır olur. Daha hızlısı için üst plan gerekir.</dd>
+      </div>
+      <div>
+        <dt>Raporu göndermeden önce bir insan okumalı</dt>
+        <dd>Yapay zekâ nadiren de olsa hata yapar. Yanlış bir tespit markanın gözünde itibarınızı zedeler; düzenle ve onayla adımı bunun için var.</dd>
+      </div>
+      <div>
+        <dt>Soğuk mailin kuralları var</dt>
+        <dd>ABD'de şirketlere soğuk mail serbest ama kurallı: gerçek gönderen bilgisi, fiziksel adres ve çalışan bir “listeden çık” bağlantısı şart. AB ve Kanada'da kurallar çok daha sıkı; bu yüzden ABD ile başlamayı öneriyoruz. Gönderim ve kurallara uyum sizin tarafınızda kalır.</dd>
+      </div>
+      <div>
+        <dt>Helium 10 bağlanamıyor</dt>
+        <dd>Dışarıya veri vermiyor ve otomatik erişimi yasaklıyor.</dd>
+      </div>
+      <div>
+        <dt>Bildirimler Telegram'dan gelir</dt>
+        <dd>WhatsApp, otomatik sistemlerin mevcut gruplara mesaj atmasına izin vermiyor.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="sorular" class="questions">
+    <h2>Sizden öğrenmemiz gerekenler</h2>
+    <p>Çoğu soru tek dokunuşla cevaplanır. Önerdiğimiz şıkları işaretledik; katılmıyorsanız başka şıkkı seçin ya da yorum yazın. Emin olmadığınız soruyu boş geçebilirsiniz.</p>
+    <p>Ekipten biri bir soruyu cevapladıysa, cevabını ve kimin verdiğini o sorunun altında görürsünüz. Aynı soruya siz de kendi cevabınızı verebilirsiniz.</p>
+
+    <div class="who">
+      <label for="person">Adınız</label>
+      <input id="person" name="person" type="text" autocomplete="given-name" aria-describedby="person-hint">
+      <p class="field-hint" id="person-hint">Cevapların kime ait olduğunu bilmemiz için. Her biriniz kendi telefonundan ayrı ayrı doldurabilir.</p>
+    </div>
+
+    <div id="form" aria-live="off"></div>
+
+    <div class="finish" id="finish">
+      <h3>Bitirdiniz mi?</h3>
+      <p>Cevaplarınız zaten kaydedildi. Tamamladığınızı bildirirseniz incelemeye başlarız; sonradan dönüp değiştirebilirsiniz.</p>
+      <button type="button" id="done-btn" class="primary">Cevaplarımı tamamladım</button>
+      <p class="finish-state" id="done-state" role="status"></p>
+    </div>
+  </section>
+
+</main>
+
+<div class="bar" id="bar">
+  <div class="wrap bar-inner">
+    <div class="bar-progress">
+      <span id="count">0 / 0 cevaplandı</span>
+      <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
+    </div>
+    <span class="save" id="save" role="status">Henüz cevap yok</span>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
