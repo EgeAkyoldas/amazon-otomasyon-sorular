@@ -161,7 +161,8 @@
         <tr><th scope="row">Toplam</th><td>~$110</td><td>~$400</td></tr>
       </tfoot>
     </table>
-    <p class="note">Tutar aylık marka sayınıza bağlı. Keepa fiyatı abonelik açılırken netleşir. Apollo aboneliğiniz kalkarsa net fark ayrıca hesaplanır.</p>
+    <p class="note">Düşük kullanım: araçların en küçük planları ve ayda az sayıda marka. Yoğun kullanım: üst planlar ve ayda yüzlerce marka. Gerçek tutar sizin marka sayınıza göre bu ikisinin arasında bir yerde olur.</p>
+    <p class="note">Keepa euro ile, diğerleri dolar ile faturalanır; toplam yaklaşık dolar karşılığıdır. Keepa fiyatı abonelik açılırken netleşir. Apollo aboneliğiniz kalkarsa net fark ayrıca hesaplanır.</p>
     <p class="note">Geliştirme ücreti, cevaplarınızla kapsam netleşince ayrıca paylaşılacak.</p>
   </section>
 
@@ -171,6 +172,10 @@
       <div>
         <dt>“Yapay zekâyı eğitmek” ne demek</dt>
         <dd>Model baştan eğitilmeyecek; buna gerek de yok. Sistem veriyi kendisi toplar, sizin kurallarınıza göre değerlendirir ve raporu yazar. Sizin eğitmeniz şu anlama geliyor: panelden eşikleri, sunduğunuz hizmetleri, raporun tonunu ve beğendiğiniz örnek raporları ayarlamak.</dd>
+      </div>
+      <div>
+        <dt>API ne demek</dt>
+        <dd>Bir aracın verisini başka bir yazılıma otomatik vermesi. Keepa ve SmartScout'ta bu, normal abonelikten ayrı bir hizmet. Sistemin sizin yerinize veri çekebilmesi için gerekiyor.</dd>
       </div>
       <div>
         <dt>Toplu işler zaman alır</dt>
@@ -197,14 +202,30 @@
 
   <section id="sorular" class="questions">
     <h2>Sizden öğrenmemiz gerekenler</h2>
-    <p>Çoğu soru tek dokunuşla cevaplanır. Önerdiğimiz şıkları işaretledik; katılmıyorsanız başka şıkkı seçin ya da yorum yazın. Emin olmadığınız soruyu boş geçebilirsiniz.</p>
-    <p>Ekipten biri bir soruyu cevapladıysa, cevabını ve kimin verdiğini o sorunun altında görürsünüz. Aynı soruya siz de kendi cevabınızı verebilirsiniz.</p>
+    <p>Çoğu soru tek dokunuşla cevaplanır. Emin olmadığınız soruyu boş geçebilirsiniz; doğru ya da yanlış cevap yok.</p>
+
+    <dl class="legend">
+      <div>
+        <dt><span class="rec">Önerimiz</span></dt>
+        <dd>Sizin yerinizde olsak seçeceğimiz şık. Altında nedenini yazdık. Hiçbir şık seçili gelmez; katılmıyorsanız başka şıkkı seçin, karar sizin.</dd>
+      </div>
+      <div>
+        <dt>Yorum ekle</dt>
+        <dd>Şıklar tam uymuyorsa ya da eklemek istediğiniz bir şey varsa her sorunun altına yazabilirsiniz.</dd>
+      </div>
+      <div>
+        <dt>Ekipten gelen cevaplar</dt>
+        <dd>Biriniz bir soruyu cevapladıysa, diğerleri cevabı ve kimin verdiğini o sorunun altında görür. Aynı soruya siz de kendi cevabınızı verebilirsiniz.</dd>
+      </div>
+    </dl>
 
     <div class="who">
-      <label for="person">Adınız</label>
+      <label for="person">Önce adınızı yazın</label>
       <input id="person" name="person" type="text" autocomplete="given-name" aria-describedby="person-hint">
       <p class="field-hint" id="person-hint">Cevapların kime ait olduğunu bilmemiz için. Her biriniz kendi telefonundan ayrı ayrı doldurabilir.</p>
     </div>
+
+    <p class="lock-note" id="lock-note">Sorular adınızı yazınca açılır.</p>
 
     <div id="form" aria-live="off"></div>
 

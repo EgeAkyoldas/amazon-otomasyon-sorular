@@ -40,7 +40,7 @@
 
   var flushTimer = null;
   var retryTimer = null;
-  var sending = false;
+  var inFlight = null;
 
   function saveAnswer(question, section) {
     var a = state.answers[question.id] || {};
@@ -93,13 +93,13 @@
       setSave("Bu cihazda saklandı", "ok");
       return Promise.resolve(false);
     }
-    if (sending) return Promise.resolve(false);
+    // Bir gönderim yoldaysa onun bitmesini bekle, sonra sıradakini gönder.
+    if (inFlight) return inFlight.then(function () { return flush(event); });
     if (!queue.length && !event) {
       setSave("Kaydedildi", "ok");
       return Promise.resolve(true);
     }
 
-    sending = true;
     var batch = queue.slice();
     var payload = {
       key: state.key,
@@ -109,20 +109,20 @@
     };
     if (event) payload.event = event;
 
-    return send(payload)
+    inFlight = send(payload)
       .then(function () {
+        inFlight = null;
         var sentAt = {};
         batch.forEach(function (r) { sentAt[r.id] = r.clientTime; });
         // Gönderim sırasında değişen cevaplar kuyrukta kalır.
         queue = queue.filter(function (r) { return sentAt[r.id] !== r.clientTime; });
         store(QUEUE_KEY, queue);
-        sending = false;
         if (queue.length) scheduleFlush(600);
         else setSave("Kaydedildi", "ok");
         return true;
       })
       .catch(function (err) {
-        sending = false;
+        inFlight = null;
         if (String(err.message) === "key") {
           setSave("Bağlantı geçersiz. Size gönderilen linki kullanın.", "wait");
         } else {
@@ -132,6 +132,7 @@
         }
         return false;
       });
+    return inFlight;
   }
 
   window.addEventListener("online", function () { flush(); });
@@ -172,6 +173,14 @@
     var n = allQuestions.filter(isAnswered).length;
     countEl.textContent = n + " / " + allQuestions.length + " cevaplandı";
     fillEl.style.width = (allQuestions.length ? (n / allQuestions.length) * 100 : 0) + "%";
+
+    SECTIONS.forEach(function (section) {
+      var tag = document.getElementById("n-" + section.id);
+      if (!tag) return;
+      var done = section.questions.filter(isAnswered).length;
+      tag.textContent = done + " / " + section.questions.length;
+      tag.className = "group-count" + (done === section.questions.length ? " full" : "");
+    });
   }
 
   function setValue(q, section, value) {
@@ -209,15 +218,34 @@
           setValue(q, section, label);
         }
       });
+      var recommended = q.rec === i;
       box.appendChild(
-        el("label", { class: "opt" }, [
+        el("label", { class: "opt" + (recommended ? " opt-rec" : "") }, [
           input,
           el("span", { class: "opt-label", text: label }),
-          q.rec === i ? el("span", { class: "rec", text: "Önerimiz" }) : null,
+          recommended ? el("span", { class: "rec", text: "Önerimiz" }) : null,
+          // Önerinin nedeni şıkkın içinde, tam genişlikte durur: rozet tek başına bir şey anlatmıyor.
+          recommended && q.recWhy ? el("span", { class: "rec-why", text: "Neden öneriyoruz: " + q.recWhy }) : null,
         ])
       );
     });
-    return box;
+
+    if (multi) return box;
+
+    // Tek seçimli soruda yanlışlıkla verilen cevabı geri almanın yolu.
+    var clear = el("button", { type: "button", class: "clear", text: "Seçimi kaldır" });
+    clear.hidden = !current;
+    clear.addEventListener("click", function () {
+      box.querySelectorAll("input:checked").forEach(function (n) { n.checked = false; });
+      clear.hidden = true;
+      setValue(q, section, "");
+    });
+    box.addEventListener("change", function () { clear.hidden = false; });
+
+    var frag = document.createDocumentFragment();
+    frag.appendChild(box);
+    frag.appendChild(clear);
+    return frag;
   }
 
   function renderInput(q, section) {
@@ -237,6 +265,7 @@
       }
     }
     if (q.placeholder) input.setAttribute("placeholder", q.placeholder);
+    else if (q.type === "number") input.setAttribute("placeholder", "Yaklaşık bir rakam yeter");
     input.value = current;
     input.addEventListener("input", function () { setValue(q, section, input.value); });
 
@@ -281,7 +310,10 @@
     var root = document.getElementById("form");
     SECTIONS.forEach(function (section) {
       var group = el("div", { class: "group", id: "g-" + section.id }, [
-        el("div", { class: "group-head" }, [el("h3", { text: section.title })]),
+        el("div", { class: "group-head" }, [
+          el("h3", { text: section.title }),
+          el("span", { class: "group-count", id: "n-" + section.id }),
+        ]),
         section.intro ? el("p", { class: "group-intro", text: section.intro }) : null,
       ]);
 
@@ -358,14 +390,31 @@
 
   // ---------- İsim ----------
 
+  // Sorular isim yazılınca açılır: cevaplar baştan doğru kişiye yazılsın.
+
   var personEl = document.getElementById("person");
   var personHint = document.getElementById("person-hint");
+  var formEl = document.getElementById("form");
+  var finishEl = document.getElementById("finish");
+  var lockNote = document.getElementById("lock-note");
+  var PERSON_HINT = "Cevapların kime ait olduğunu bilmemiz için. Her biriniz kendi telefonundan ayrı ayrı doldurabilir.";
+
+  function applyLock() {
+    var locked = state.person.trim().length < 2;
+    formEl.inert = locked;
+    finishEl.inert = locked;
+    formEl.classList.toggle("locked", locked);
+    finishEl.classList.toggle("locked", locked);
+    lockNote.hidden = !locked;
+  }
+
   personEl.value = state.person || "";
   personEl.addEventListener("input", function () {
     state.person = personEl.value;
     store(STORE_KEY, state);
-    personHint.textContent = "Cevapların kime ait olduğunu bilmemiz için. Her biriniz kendi telefonundan ayrı ayrı doldurabilir.";
+    personHint.textContent = PERSON_HINT;
     personHint.className = "field-hint";
+    applyLock();
   });
 
   // ---------- Tamamla ----------
@@ -452,6 +501,7 @@
   // ---------- Başlat ----------
 
   renderForm();
+  applyLock();
   updateProgress();
   loadOthers();
   if (state.done) showDone();

@@ -419,8 +419,50 @@ main h3 {
   border-top: 3px solid var(--ink);
 }
 
-.who {
+.legend {
   margin: 1.5rem 0 0;
+  padding: 0.25rem 1rem;
+  background: var(--surface);
+  border-radius: 6px;
+}
+
+.legend > div {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--paper);
+}
+
+.legend > div:first-child {
+  border-top: 0;
+}
+
+.legend dt {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.legend dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+
+.who {
+  margin: 2rem 0 0;
+}
+
+.lock-note {
+  margin: 1rem 0 0;
+  font-weight: 600;
+  color: var(--partial);
+}
+
+.lock-note[hidden] {
+  display: none;
+}
+
+#form.locked,
+.finish.locked {
+  opacity: 0.4;
 }
 
 label,
@@ -477,8 +519,27 @@ textarea:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 
+.group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .group-head h3 {
   font-size: 1.3125rem;
+}
+
+.group-count {
+  flex: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.group-count.full {
+  color: var(--yes);
 }
 
 .group-intro {
@@ -544,6 +605,48 @@ textarea:focus-visible {
 
 .opt-label {
   flex: 1;
+  min-width: 0;
+}
+
+/* Önerilen şık: üst satırda şık + rozet, altında tam genişlikte neden. */
+.opt-rec {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  column-gap: 0.75rem;
+}
+
+.opt-rec input {
+  margin-top: 0.2rem;
+}
+
+.rec-why {
+  grid-column: 2 / -1;
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.clear {
+  margin: 0.6rem 0 0;
+  padding: 0.35rem 0;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.clear[hidden] {
+  display: none;
+}
+
+.clear:not([hidden]) + .comment-toggle {
+  margin-left: 1.25rem;
 }
 
 .opt:has(input:checked) {
@@ -620,9 +723,8 @@ textarea:focus-visible {
 .others {
   margin-top: 1rem;
   padding: 0.7rem 0.9rem;
-  background: var(--surface);
-  border-left: 3px solid var(--teal);
-  border-radius: 0 6px 6px 0;
+  background: var(--teal-tint);
+  border-radius: 6px;
 }
 
 .others[hidden] {
@@ -641,7 +743,7 @@ textarea:focus-visible {
   grid-template-columns: 6.5rem 1fr;
   gap: 0.1rem 0.75rem;
   padding: 0.4rem 0;
-  border-top: 1px solid var(--paper);
+  border-top: 1px solid var(--line);
   font-size: 0.9375rem;
   overflow-wrap: anywhere;
 }
