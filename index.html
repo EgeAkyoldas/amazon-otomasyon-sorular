@@ -67,20 +67,6 @@
   <section id="anladik">
     <h2>Ne anladık</h2>
     <p>Amazon ABD'de toptan satış için marka buluyor, markadaki doğru kişiye ulaşıyor ve dikkat çekmek için ücretsiz bir listing analizi gönderiyorsunuz. Bugün bu üç adım ayrı araçlarda, büyük ölçüde elle yürüyor. İstediğiniz, üçünün tek sistemde sırayla ve otomatik çalışması.</p>
-    <dl class="modules">
-      <div>
-        <dt>Marka filtreleme</dt>
-        <dd>SmartScout verisinden markaları satış, ciro ve kategoriye göre süzmek; küçük ve büyük markaları ayırmak.</dd>
-      </div>
-      <div>
-        <dt>Doğru kişiyi bulma</dt>
-        <dd>Markanın sitesi, telefonu ve karar vericilerinin doğrulanmış e-postaları. Apollo küçük markalarda yetersiz ve pahalı kalıyor.</dd>
-      </div>
-      <div>
-        <dt>Listing analizi ve rapor</dt>
-        <dd>Markanın bir ürününü inceleyip eksiklerini ve rakiple farkını gösteren, markaya özel PDF rapor.</dd>
-      </div>
-    </dl>
   </section>
 
   <section id="kapsam">
@@ -90,13 +76,13 @@
     <ul class="scope">
       <li><span class="status yes">Yapılır</span><span>Marka adı ya da ürün linki girilir; sistem markanın ürünlerini bulur ve incelenecek ürünü seçer.</span></li>
       <li><span class="status yes">Yapılır</span><span>Başlık uzunluğu, madde imlerinin sayısı ve uzunluğu, görsel sayısı ve çözünürlüğü, A+ içerik ve video olup olmadığı, fiyat ve Buy Box durumu kontrol edilir.</span></li>
-      <li><span class="status yes">Yapılır</span><span>Aynı alt kategorideki güçlü rakiple yan yana kıyas.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Aynı alt kategorideki çok satan rakiple yan yana kıyas; rakibin başlığında ve madde imlerinde geçip sizde olmayan anahtar terimler.</span></li>
       <li><span class="status yes">Yapılır</span><span>Firmanızın adı ve logosuyla, markaya özel PDF rapor. Gitmeden önce panelde okuyup düzeltebilirsiniz.</span></li>
       <li><span class="status partial">Kısmen</span><span>Satış adedi. Amazon kesin rakam vermiyor; eldeki veri “ayda 100+” gibi basamaklı ve her üründe yok. Kesin adet yerine “rakip sizden kaç kat iyi sırada” kıyasını kullanırız.</span></li>
       <li><span class="status partial">Kısmen</span><span>Görsel kalitesi. Sayı ve çözünürlük ölçülür; “görsel güzel mi” yargısı otomatik ve kesin değildir.</span></li>
       <li><span class="status no">Şimdilik yok</span><span>Anahtar kelimelerin aylık arama hacmi. İsterseniz sonradan eklenir.</span></li>
     </ul>
-    <p class="note">Veri kaynağı Keepa API. Amazon sayfalarını doğrudan taramayacağız: Amazon bunu kullanım şartlarında yasaklıyor ve teknik olarak engelliyor.</p>
+    <p class="note">Veri kaynağı Keepa API: Keepa'nın veriyi yazılıma otomatik veren, normal abonelikten ayrı satılan hizmeti. Dökümanınızda geçen doğrudan Amazon sayfası taraması yapılmayacak; Amazon bunu kullanım şartlarında yasaklıyor ve teknik olarak engelliyor.</p>
 
     <h3>Marka filtreleme</h3>
     <ul class="scope">
@@ -111,13 +97,14 @@
     <ul class="scope">
       <li><span class="status yes">Yapılır</span><span>Markanın resmi sitesi ve telefon numarası.</span></li>
       <li><span class="status yes">Yapılır</span><span>Kurucu, e-ticaret, satış, pazarlama gibi rollerde kişi adı ve ünvanı.</span></li>
-      <li><span class="status yes">Yapılır</span><span>Tek araca bağlı kalmadan birkaç kaynağı sırayla deneme; yalnızca sonuç bulan kaynağa ödeme.</span></li>
+      <li><span class="status yes">Yapılır</span><span>Tek araca bağlı kalmadan Hunter ve benzeri birkaç kaynağı sırayla deneme; yalnızca sonuç bulan kaynağa ödeme.</span></li>
       <li><span class="status yes">Yapılır</span><span>Her adres için açık etiket: doğrulandı, kesin doğrulanamadı ya da tahmini.</span></li>
       <li><span class="status yes">Yapılır</span><span>Kişiye özel mail taslağı ve Excel/CSV çıktısı.</span></li>
       <li><span class="status yes">Yapılır</span><span>Harcama takibi ve aylık tavan; hangi araca ne ödendiği panelde görünür.</span></li>
       <li><span class="status partial">Kısmen</span><span>Her markada doğrulanmış e-posta. Küçük markalarda bazı kişiler hiçbir kaynakta yok; bazı firmaların mail sunucusu kesin doğrulamaya izin vermiyor.</span></li>
       <li><span class="status no">Yapılmaz</span><span>Mail gönderimi. Sistem listeyi ve taslağı hazırlar; gönderimi kendi mail aracınızdan yaparsınız.</span></li>
       <li><span class="status no">Yapılmaz</span><span>LinkedIn'den doğrudan veri çekme. LinkedIn bunu yasaklıyor.</span></li>
+      <li><span class="status no">Yapılmaz</span><span>Clearbit. Dökümanınızda geçiyor ama artık ayrı bir hizmet olarak satılmıyor.</span></li>
     </ul>
   </section>
 
@@ -163,14 +150,12 @@
         <tr><th scope="row">Yapay zekâ (rapor metni)</th><td>$10</td><td>$50</td></tr>
         <tr><th scope="row">E-posta bulma kredileri</th><td>$20</td><td>$150</td></tr>
         <tr><th scope="row">Doğrulama ve arama</th><td>$5</td><td>$20</td></tr>
-        <tr><th scope="row">Telegram</th><td>$0</td><td>$0</td></tr>
       </tbody>
       <tfoot>
         <tr><th scope="row">Toplam</th><td>~$110</td><td>~$400</td></tr>
       </tfoot>
     </table>
-    <p class="note">Düşük kullanım: araçların en küçük planları ve ayda az sayıda marka. Yoğun kullanım: üst planlar ve ayda yüzlerce marka. Gerçek tutar sizin marka sayınıza göre bu ikisinin arasında bir yerde olur.</p>
-    <p class="note">Keepa euro ile, diğerleri dolar ile faturalanır; toplam yaklaşık dolar karşılığıdır. Keepa fiyatı abonelik açılırken netleşir. Apollo aboneliğiniz kalkarsa net fark ayrıca hesaplanır.</p>
+    <p class="note">Düşük kullanım en küçük planlar ve ayda az sayıda marka, yoğun kullanım üst planlar ve ayda yüzlerce marka demek. Keepa euro ile faturalanır ve fiyatı abonelik açılırken netleşir.</p>
     <p class="note">Geliştirme ücreti, cevaplarınızla kapsam netleşince ayrıca paylaşılacak.</p>
   </section>
 
@@ -179,31 +164,15 @@
     <dl class="facts">
       <div>
         <dt>“Yapay zekâyı eğitmek” ne demek</dt>
-        <dd>Model baştan eğitilmeyecek; buna gerek de yok. Sistem veriyi kendisi toplar, sizin kurallarınıza göre değerlendirir ve raporu yazar. Sizin eğitmeniz şu anlama geliyor: panelden eşikleri, sunduğunuz hizmetleri, raporun tonunu ve beğendiğiniz örnek raporları ayarlamak.</dd>
-      </div>
-      <div>
-        <dt>API ne demek</dt>
-        <dd>Bir aracın verisini başka bir yazılıma otomatik vermesi. Keepa ve SmartScout'ta bu, normal abonelikten ayrı bir hizmet. Sistemin sizin yerinize veri çekebilmesi için gerekiyor.</dd>
+        <dd>Model baştan eğitilmeyecek; gerek de yok. Sistem veriyi toplar, sizin kurallarınıza göre değerlendirir ve raporu yazar. Sizin ayarlayacağınız: eşikler, sunduğunuz hizmetler, raporun tonu ve beğendiğiniz örnek raporlar.</dd>
       </div>
       <div>
         <dt>Toplu işler zaman alır</dt>
         <dd>Bir rapor için gereken veri 5–6 dakikada toplanır. 100 markalık bir liste en düşük Keepa planında yaklaşık 9 saat sürer; gece çalışır, sabah hazır olur. Daha hızlısı için üst plan gerekir.</dd>
       </div>
       <div>
-        <dt>Raporu göndermeden önce bir insan okumalı</dt>
-        <dd>Yapay zekâ nadiren de olsa hata yapar. Yanlış bir tespit markanın gözünde itibarınızı zedeler; düzenle ve onayla adımı bunun için var.</dd>
-      </div>
-      <div>
         <dt>Soğuk mailin kuralları var</dt>
-        <dd>ABD'de şirketlere soğuk mail serbest ama kurallı: gerçek gönderen bilgisi, fiziksel adres ve çalışan bir “listeden çık” bağlantısı şart. AB ve Kanada'da kurallar çok daha sıkı; bu yüzden ABD ile başlamayı öneriyoruz. Gönderim ve kurallara uyum sizin tarafınızda kalır.</dd>
-      </div>
-      <div>
-        <dt>Helium 10 bağlanamıyor</dt>
-        <dd>Dışarıya veri vermiyor ve otomatik erişimi yasaklıyor.</dd>
-      </div>
-      <div>
-        <dt>Bildirimler Telegram'dan gelir</dt>
-        <dd>WhatsApp, otomatik sistemlerin mevcut gruplara mesaj atmasına izin vermiyor.</dd>
+        <dd>ABD'de şirketlere soğuk mail serbest ama kurallı: gerçek gönderen bilgisi, fiziksel adres ve çalışan bir “listeden çık” bağlantısı şart. Gönderim ve kurallara uyum sizin tarafınızda kalır.</dd>
       </div>
     </dl>
   </section>
