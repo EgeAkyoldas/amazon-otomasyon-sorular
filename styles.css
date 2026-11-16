@@ -516,6 +516,23 @@ main h3 {
 }
 
 label,
+/* Bir soruya atlandığında üstteki çubuk ve bölüm başlığı soruyu kapatmasın. */
+.q,
+.finish {
+  scroll-margin-top: 7rem;
+}
+
+.q[hidden] {
+  display: none;
+}
+
+.q-follow-note {
+  margin: 0 0 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--teal);
+}
+
 .q-text {
   font-weight: 600;
 }

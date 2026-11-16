@@ -167,19 +167,56 @@
   }
 
   var allQuestions = [];
-  SECTIONS.forEach(function (s) { s.questions.forEach(function (q) { allQuestions.push(q); }); });
+  var sectionOf = {};
+  SECTIONS.forEach(function (s) {
+    s.questions.forEach(function (q) { allQuestions.push(q); sectionOf[q.id] = s; });
+  });
+
+  // Ek sorular: showIf tanımlı soru, üst sorunun cevabına göre açılır.
+  // { id } → üst soru cevaplanınca; { id, in: [...] } → cevap listedekilerden biriyse.
+  function isVisible(q) {
+    if (!q.showIf) return true;
+    var parent = (state.answers[q.showIf.id] || {}).value;
+    if (parent == null || parent === "" || (Array.isArray(parent) && !parent.length)) return false;
+    if (!q.showIf.in) return true;
+    var picked = Array.isArray(parent) ? parent : [parent];
+    return picked.some(function (v) { return q.showIf.in.indexOf(v) !== -1; });
+  }
+
+  function visibleQuestions() {
+    return allQuestions.filter(isVisible);
+  }
+
+  function updateConditionals() {
+    allQuestions.forEach(function (q) {
+      if (!q.showIf) return;
+      var block = document.getElementById("q-" + q.id);
+      if (!block) return;
+      var show = isVisible(q);
+      if (show === !block.hidden) return;
+      block.hidden = !show;
+      if (show || !isAnswered(q)) return;
+      // Üst cevap değişti ve ek soru kapandı: eski cevabı sil ki tabloda yanıltıcı kalmasın.
+      state.answers[q.id] = { value: q.type === "multi" ? [] : "", comment: "" };
+      block.querySelectorAll("input:checked").forEach(function (n) { n.checked = false; });
+      block.querySelectorAll("input[type=text], input[type=number], textarea").forEach(function (n) { n.value = ""; });
+      saveAnswer(q, sectionOf[q.id]);
+    });
+  }
 
   function updateProgress() {
-    var n = allQuestions.filter(isAnswered).length;
-    countEl.textContent = n + " / " + allQuestions.length + " cevaplandı";
-    fillEl.style.width = (allQuestions.length ? (n / allQuestions.length) * 100 : 0) + "%";
+    var shown = visibleQuestions();
+    var n = shown.filter(isAnswered).length;
+    countEl.textContent = n + " / " + shown.length + " cevaplandı";
+    fillEl.style.width = (shown.length ? (n / shown.length) * 100 : 0) + "%";
 
     SECTIONS.forEach(function (section) {
       var tag = document.getElementById("n-" + section.id);
       if (!tag) return;
-      var done = section.questions.filter(isAnswered).length;
-      tag.textContent = done + " / " + section.questions.length;
-      tag.className = "group-count" + (done === section.questions.length ? " full" : "");
+      var inSection = section.questions.filter(isVisible);
+      var done = inSection.filter(isAnswered).length;
+      tag.textContent = done + " / " + inSection.length;
+      tag.className = "group-count" + (done === inSection.length ? " full" : "");
     });
   }
 
@@ -187,6 +224,8 @@
     var a = state.answers[q.id] || (state.answers[q.id] = {});
     a.value = value;
     saveAnswer(q, section);
+    updateConditionals();
+    updateProgress();
   }
 
   function setComment(q, section, text) {
@@ -319,7 +358,8 @@
 
       section.questions.forEach(function (q) {
         var isChoice = q.type === "single" || q.type === "multi";
-        var block = el("div", { class: "q" }, [
+        var block = el("div", { class: "q" + (q.showIf ? " q-follow" : ""), id: "q-" + q.id }, [
+          q.showIf ? el("p", { class: "q-follow-note", text: "Cevabınıza göre ek soru" }) : null,
           el("p", { class: "q-text", id: "t-" + q.id, text: q.text }),
           q.why ? el("p", { class: "q-why", text: q.why }) : null,
           isChoice ? renderOptions(q, section) : renderInput(q, section),
@@ -329,6 +369,7 @@
         var others = el("div", { class: "others", id: "o-" + q.id });
         others.hidden = true;
         block.appendChild(others);
+        block.hidden = !isVisible(q);
         group.appendChild(block);
       });
 
@@ -443,7 +484,7 @@
     queue = [];
     SECTIONS.forEach(function (section) {
       section.questions.forEach(function (q) {
-        if (!isAnswered(q)) return;
+        if (!isVisible(q) || !isAnswered(q)) return;
         var a = state.answers[q.id];
         queue.push({
           id: q.id,
@@ -521,15 +562,41 @@
   });
   paintQuick();
 
+  // ---------- Geri gelen kişi ----------
+  // Cevaplar bu tarayıcıda saklanır. Geri gelindiğinde üstteki bağlantı ilk boş soruya götürür.
+
+  function firstUnanswered() {
+    var shown = visibleQuestions();
+    for (var i = 0; i < shown.length; i++) {
+      if (!isAnswered(shown[i])) return document.getElementById("q-" + shown[i].id);
+    }
+    return document.getElementById("finish");
+  }
+
+  function paintReturn() {
+    var shown = visibleQuestions();
+    var n = shown.filter(isAnswered).length;
+    if (state.person.trim().length < 2 || !n) return;
+    document.getElementById("how").textContent =
+      "Tekrar hoş geldiniz. Cevaplarınız bu cihazda duruyor: " + n + " / " + shown.length + " cevaplandı.";
+    var link = document.getElementById("jump");
+    link.textContent = n === shown.length ? "Cevaplarınıza göz atın" : "Kaldığınız yerden devam edin";
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      firstUnanswered().scrollIntoView({ block: "start" });
+    });
+  }
+
   // ---------- Başlat ----------
 
   renderForm();
   applyLock();
   updateProgress();
   loadOthers();
+  paintReturn();
   if (state.done) showDone();
 
-  if (!allQuestions.some(isAnswered)) setSave("Henüz cevap yok");
+  if (!visibleQuestions().some(isAnswered)) setSave("Henüz cevap yok");
   else if (queue.length) flush();
   else setSave(ENDPOINT ? "Kaydedildi" : "Bu cihazda saklandı", "ok");
 })();
