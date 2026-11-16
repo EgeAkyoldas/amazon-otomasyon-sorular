@@ -216,6 +216,56 @@ a {
   font-weight: 600;
 }
 
+/* ---------- Kısayol çubuğu ---------- */
+
+.quicknav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 6;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.quicknav[hidden] {
+  display: none;
+}
+
+.quicknav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 2.75rem;
+  font-size: 0.9375rem;
+}
+
+.quicknav a,
+.quicknav button {
+  padding: 0.5rem 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--teal);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.quicknav .quicknav-close {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* Çubuk açıkken yapışkan bölüm başlığı onun altında dursun. */
+body.has-quicknav .group-head {
+  top: 2.75rem;
+}
+
+#sorular {
+  scroll-margin-top: 3.25rem;
+}
+
 /* ---------- Durum etiketleri ---------- */
 
 .status {

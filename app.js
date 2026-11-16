@@ -498,6 +498,29 @@
   }
   paintThemeBtn();
 
+  // ---------- Kısayol çubuğu ----------
+  // Sayfa aşağı kaydırılınca üstte belirir. Kapatılırsa sayfa yenilenene kadar kapalı kalır;
+  // bu yüzden durum bilerek saklanmıyor.
+
+  var quickEl = document.getElementById("quicknav");
+  var quickClosed = false;
+
+  function paintQuick() {
+    var show = !quickClosed && window.scrollY > 320;
+    quickEl.hidden = !show;
+    document.body.classList.toggle("has-quicknav", show);
+  }
+
+  window.addEventListener("scroll", paintQuick, { passive: true });
+  document.getElementById("to-top").addEventListener("click", function () {
+    window.scrollTo({ top: 0 });
+  });
+  document.getElementById("quicknav-close").addEventListener("click", function () {
+    quickClosed = true;
+    paintQuick();
+  });
+  paintQuick();
+
   // ---------- Başlat ----------
 
   renderForm();
