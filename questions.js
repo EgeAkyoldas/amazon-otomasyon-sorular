@@ -415,7 +415,7 @@ const SECTIONS = [
   {
     id: "kullanim",
     title: "Kullanım ve bütçe",
-    intro: "Son bölüm. Kapsamı ve geri dönüş hesabını netleştiren sorular.",
+    intro: "Kapsamı ve geri dönüş hesabını netleştiren sorular.",
     questions: [
       {
         id: "g1",
@@ -472,11 +472,18 @@ const SECTIONS = [
         text: "Bir raporu elle hazırlamak ne kadar sürüyor?",
         options: ["30 dakikadan az", "30–60 dakika", "1–2 saat", "2 saatten fazla"],
       },
+    ],
+  },
+  {
+    id: "ek",
+    title: "Eklemek istedikleriniz",
+    intro: "Sormadığımız ama bilmemiz gereken her şeyi buraya yazabilirsiniz: aklınızdaki bir özellik, bir endişe, bir örnek.",
+    questions: [
       {
         id: "g7",
         type: "long",
-        text: "Eklemek istediğiniz başka bir şey var mı?",
-        placeholder: "Sormadığımız ama bilmemiz gereken her şey",
+        text: "Eklemek istediklerim",
+        placeholder: "Buraya yazın",
       },
     ],
   },

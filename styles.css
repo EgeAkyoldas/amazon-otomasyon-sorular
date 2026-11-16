@@ -551,6 +551,10 @@ textarea {
   border-radius: 6px;
 }
 
+#in-g7 {
+  min-height: 11rem;
+}
+
 textarea {
   min-height: 5.5rem;
   resize: vertical;
